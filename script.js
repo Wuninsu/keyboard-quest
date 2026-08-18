@@ -129,7 +129,7 @@ let LEVEL_CHALLENGES = [
     { id: "l4_new", level: 4, type: "shortcut-info", question: "Perform the shortcut to create a NEW document!", answer: "Ctrl+N", hint: "Hold Ctrl and press N.", xp: 30 },
     { id: "l4_showdesktop", level: 4, type: "shortcut", question: "Perform the shortcut to SHOW THE DESKTOP!", answer: "Win+D", hint: "Hold the Windows key and press D.", xp: 40 },
     { id: "l4_explorer", level: 4, type: "shortcut", question: "Perform the shortcut to OPEN FILE EXPLORER!", answer: "Win+E", hint: "Hold the Windows key and press E.", xp: 40 },
-    { id: "l4_switch", level: 4, type: "shortcut", question: "Perform the shortcut to SWITCH BETWEEN OPEN WINDOWS!", answer: "Alt+Tab", hint: "Hold Alt and press Tab.", xp: 40 },
+    // { id: "l4_switch", level: 4, type: "shortcut", question: "Perform the shortcut to SWITCH BETWEEN OPEN WINDOWS!", answer: "Alt+Tab", hint: "Hold Alt and press Tab.", xp: 40 },
 
     // LEVEL 5: WINDOWS WIZARD - simulated computer tasks
     { id: "l5_homework", level: 5, type: "simulated-os", question: "Open Documents and create a folder named Homework.", answer: "OS_TASK_COMPLETE", hint: "Open Documents, then choose New Folder.", xp: 40 },
