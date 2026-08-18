@@ -1053,8 +1053,7 @@ function handleKeyFinderAnswer(pressedKey, challenge) {
     if (isCorrect) {
         completeChallenge(challenge, {
             title: "🎉 PERFECT!",
-            message: `You found the ${challenge.answer} key!`,
-            targetKey: challenge.answer
+            message: `You found the ${challenge.answer} key!`
         });
     } else {
         wrongAttemptsCurrent++;
@@ -1062,14 +1061,6 @@ function handleKeyFinderAnswer(pressedKey, challenge) {
         playSound("wrong");
         gameState.streak = 0;
         updateHUD();
-
-        const keys = document.querySelectorAll("#arena-keyboard-container .key");
-        keys.forEach(k => {
-            if (k.dataset.key === pressedKey.toUpperCase()) {
-                k.classList.add("wrong-shake");
-                setTimeout(() => k.classList.remove("wrong-shake"), 400);
-            }
-        });
 
         if (wrongAttemptsCurrent >= 2) {
             const hintBox = document.getElementById("hint-box");
