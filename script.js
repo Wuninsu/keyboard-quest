@@ -430,7 +430,7 @@ function unlockBadge(badgeId) {
 
 // --- 6. RENDER VIRTUAL KEYBOARDS ---
 
-function renderVirtualKeyboard(containerId, clickCallback) {
+function renderVirtualKeyboard(containerId, clickCallback, targetKey) {
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = "";
@@ -448,6 +448,7 @@ function renderVirtualKeyboard(containerId, clickCallback) {
             if (["Backspace", "Enter", "Caps Lock"].includes(keyLabel)) keyEl.classList.add("special", "wide");
             if (["Shift", "Ctrl", "Alt", "Tab"].includes(keyLabel)) keyEl.classList.add("special");
             if (keyLabel === "Space") keyEl.classList.add("space");
+            if (targetKey && keyLabel.toUpperCase() === targetKey.toUpperCase()) keyEl.classList.add("target-practice");
 
             keyEl.addEventListener("click", () => {
                 playSound("click");
@@ -1062,6 +1063,14 @@ function handleKeyFinderAnswer(pressedKey, challenge) {
         gameState.streak = 0;
         updateHUD();
 
+        const keys = document.querySelectorAll("#arena-keyboard-container .key");
+        keys.forEach(k => {
+            if (k.dataset.key === pressedKey.toUpperCase()) {
+                k.classList.add("wrong-shake");
+                setTimeout(() => k.classList.remove("wrong-shake"), 400);
+            }
+        });
+
         if (wrongAttemptsCurrent >= 2) {
             const hintBox = document.getElementById("hint-box");
             const hintText = document.getElementById("hint-text");
@@ -1414,6 +1423,9 @@ function startBossBattle() {
 
 // --- 11. INTERACTIVE LAB & PHYSICAL KEY MAPPER ---
 
+let labPracticeActive = false;
+let labPracticeTarget = null;
+
 function setupKeyboardLab() {
     renderVirtualKeyboard("lab-keyboard-container", (key) => inspectKey(key));
 
@@ -1421,6 +1433,7 @@ function setupKeyboardLab() {
         const keyName = normalizeKey(e);
         highlightVirtualKey(keyName.toUpperCase());
         inspectKey(keyName);
+        if (labPracticeActive) handleLabPracticeAnswer(keyName);
     };
 
     labKeyUpHandler = (e) => {
@@ -1432,6 +1445,75 @@ function setupKeyboardLab() {
     window.addEventListener("keyup", labKeyUpHandler);
 }
 
+function startLabPractice() {
+    labPracticeActive = true;
+    const allKeys = KEYBOARD_LAYOUT.flat();
+    labPracticeTarget = allKeys[Math.floor(Math.random() * allKeys.length)];
+    renderVirtualKeyboard("lab-keyboard-container", (key) => inspectKey(key), labPracticeTarget);
+
+    const targetEl = document.getElementById("lab-practice-target");
+    const feedbackEl = document.getElementById("lab-practice-feedback");
+    const toggleBtn = document.getElementById("lab-practice-toggle");
+
+    if (targetEl) targetEl.innerHTML = `Press <strong>${labPracticeTarget}</strong> on your keyboard`;
+    if (feedbackEl) feedbackEl.textContent = "";
+    if (toggleBtn) {
+        toggleBtn.textContent = "Stop Practice";
+        toggleBtn.classList.remove("btn-secondary");
+        toggleBtn.classList.add("btn-danger");
+    }
+}
+
+function stopLabPractice() {
+    labPracticeActive = false;
+    labPracticeTarget = null;
+    renderVirtualKeyboard("lab-keyboard-container", (key) => inspectKey(key));
+
+    const targetEl = document.getElementById("lab-practice-target");
+    const feedbackEl = document.getElementById("lab-practice-feedback");
+    const toggleBtn = document.getElementById("lab-practice-toggle");
+
+    if (targetEl) targetEl.innerHTML = "Press <strong>Start Practice</strong> to begin";
+    if (feedbackEl) feedbackEl.textContent = "";
+    if (toggleBtn) {
+        toggleBtn.textContent = "Start Practice";
+        toggleBtn.classList.remove("btn-danger");
+        toggleBtn.classList.add("btn-secondary");
+    }
+}
+
+function handleLabPracticeAnswer(pressedKey) {
+    if (!labPracticeActive || !labPracticeTarget) return;
+
+    const isCorrect = pressedKey.toUpperCase() === labPracticeTarget.toUpperCase();
+    const feedbackEl = document.getElementById("lab-practice-feedback");
+    const targetEl = document.getElementById("lab-practice-target");
+
+    if (isCorrect) {
+        playSound("correct");
+        if (feedbackEl) {
+            feedbackEl.textContent = "🎉 Correct!";
+            feedbackEl.style.color = "var(--success)";
+        }
+        if (targetEl) targetEl.classList.add("correct");
+
+        setTimeout(() => {
+            if (targetEl) targetEl.classList.remove("correct");
+            startLabPractice();
+        }, 800);
+    } else {
+        playSound("wrong");
+        if (feedbackEl) {
+            feedbackEl.textContent = "❌ Try again!";
+            feedbackEl.style.color = "var(--danger)";
+        }
+        if (targetEl) {
+            targetEl.classList.add("wrong");
+            setTimeout(() => targetEl.classList.remove("wrong"), 400);
+        }
+    }
+}
+
 function inspectKey(keyLabel) {
     const display = document.getElementById("lab-key-display");
     const nameEl = document.getElementById("lab-key-name");
@@ -1439,7 +1521,7 @@ function inspectKey(keyLabel) {
     const descEl = document.getElementById("lab-key-desc");
     const shortEl = document.getElementById("lab-key-shortcut");
 
-    display.textContent = keyLabel.length > 3 ? keyLabel.substring(0, 3) : keyLabel;
+    if (!display && !nameEl && !codeEl && !descEl && !shortEl) return;
 
     const info = KEY_DESCRIPTIONS[keyLabel] || {
         name: `Key '${keyLabel}'`,
@@ -1448,10 +1530,11 @@ function inspectKey(keyLabel) {
         shortcut: "None"
     };
 
-    nameEl.textContent = info.name;
-    codeEl.textContent = info.code;
-    descEl.textContent = info.desc;
-    shortEl.textContent = info.shortcut;
+    if (display) display.textContent = keyLabel.length > 3 ? keyLabel.substring(0, 3) : keyLabel;
+    if (nameEl) nameEl.textContent = info.name;
+    if (codeEl) codeEl.textContent = info.code;
+    if (descEl) descEl.textContent = info.desc;
+    if (shortEl) shortEl.textContent = info.shortcut;
 }
 
 function highlightVirtualKey(keyLabel) {
@@ -1557,6 +1640,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btn-goto-achievements").addEventListener("click", () => navigateTo("view-achievements"));
     document.getElementById("btn-goto-progress").addEventListener("click", () => navigateTo("view-progress"));
     document.getElementById("btn-goto-howto").addEventListener("click", () => navigateTo("view-howto"));
+
+    document.getElementById("lab-practice-toggle")?.addEventListener("click", () => {
+        if (labPracticeActive) {
+            stopLabPractice();
+        } else {
+            startLabPractice();
+        }
+    });
 
     document.querySelectorAll(".back-btn").forEach(btn => {
         btn.addEventListener("click", () => navigateTo(btn.dataset.target));

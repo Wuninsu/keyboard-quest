@@ -241,14 +241,13 @@
 
             <p class="section-intro">Press any key on your physical keyboard or click below to inspect key properties, codes, and OS shortcuts!</p>
 
-            <div class="lab-inspector-card">
-                <div class="inspector-badge" id="lab-key-display">?</div>
-                <div class="inspector-details">
-                    <h3 id="lab-key-name">Press or Click Any Key</h3>
-                    <p><strong>Key Code:</strong> <span id="lab-key-code">N/A</span></p>
-                    <p><strong>Primary Function:</strong> <span id="lab-key-desc">Interactive key guide active.</span></p>
-                    <p><strong>Windows Shortcut:</strong> <span id="lab-key-shortcut">None</span></p>
+            <div class="lab-practice-card" id="lab-practice-card">
+                <div class="lab-practice-header">
+                    <span class="lab-practice-label">🎯 Practice Target</span>
+                    <button class="btn btn-small btn-secondary" id="lab-practice-toggle">Start Practice</button>
                 </div>
+                <div class="lab-practice-target" id="lab-practice-target">Press <strong>Start Practice</strong> to begin</div>
+                <div class="lab-practice-feedback" id="lab-practice-feedback"></div>
             </div>
 
             <div id="lab-keyboard-container" class="v-key-container"></div>

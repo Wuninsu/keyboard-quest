@@ -482,7 +482,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 70px;
+    min-height: 40px;
 }
 
 .challenge-footer {
@@ -683,6 +683,64 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.lab-practice-card {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lab-practice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lab-practice-label {
+    font-weight: bold;
+    color: var(--accent);
+    font-size: 0.9rem;
+}
+
+.lab-practice-target {
+    font-size: clamp(2rem, 5vh, 3.5rem);
+    font-weight: 900;
+    text-align: center;
+    color: var(--secondary);
+    letter-spacing: 4px;
+}
+
+.lab-practice-target .correct {
+    color: var(--success);
+}
+
+.lab-practice-target .wrong {
+    color: var(--danger);
+}
+
+.lab-practice-feedback {
+    font-size: 0.85rem;
+    text-align: center;
+    color: var(--text-muted);
+    min-height: 1.2em;
+}
+
+.key.target-practice {
+    background: rgba(245, 158, 11, 0.35) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent), 0 0 18px rgba(245, 158, 11, 0.5);
+    animation: kqPracticePulse 1.4s ease-in-out infinite;
+    z-index: 5;
+}
+
+@keyframes kqPracticePulse {
+    0%, 100% { box-shadow: 0 0 0 3px var(--accent), 0 0 18px rgba(245, 158, 11, 0.5); }
+    50% { box-shadow: 0 0 0 6px var(--accent), 0 0 28px rgba(245, 158, 11, 0.8); }
 }
 
 /* --- BADGES GRID --- */
