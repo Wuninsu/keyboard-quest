@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⌨️ Keyboard Quest - Become a Keyboard Master!</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="logo" id="nav-logo">⌨️ Keyboard Quest</div>
+        <div class="player-info-pill">
+            <span class="rank-badge" id="hud-rank">🟢 Explorer</span>
+            <span class="player-name" id="hud-name">Agent</span>
+            <div class="xp-mini">
+                <span id="hud-xp">0 XP</span>
+                <div class="mini-bar-bg"><div class="mini-bar-fill" id="hud-xp-fill"></div></div>
+            </div>
+            <div class="streak-pill" id="hud-streak-pill" title="Answer Streak!">
+                🔥 <span id="hud-streak">0</span>
+            </div>
+        </div>
+        <div class="top-controls">
+            <button class="icon-btn" id="sound-toggle-btn" aria-label="Toggle Sound">🔊</button>
+            <button class="icon-btn" id="theme-toggle-btn" aria-label="Toggle Theme" title="Toggle Light/Dark Mode">🌓</button>
+            <button class="icon-btn" id="facilitator-btn" title="Facilitator Mode">🔑</button>
+        </div>
+    </header>
+
+    <!-- Dynamic Main Content Views -->
+    <main id="app-container">
+        
+    <!-- FIRST TIME NAME ENTRY MODAL -->
+    <div id="view-name-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="name-modal-title">
+        <div class="modal-card">
+            <h2 id="name-modal-title">Welcome, Agent!</h2>
+            <p>What should we call you on your mission to become a Keyboard Master?</p>
+            <input type="text" id="player-nickname-input" placeholder="Enter your nickname..." maxlength="15" autofocus aria-required="true">
+            <button class="btn btn-primary btn-large" id="save-name-btn">Start My Quest 🚀</button>
+        </div>
+    </div>
+
+    <!-- COUNTDOWN OVERLAY -->
+    <div id="countdown-overlay" class="modal-overlay hidden" role="status" aria-live="polite">
+        <div class="countdown-card">
+            <h2 id="countdown-title">GET READY, AGENT!</h2>
+            <div id="countdown-number" class="countdown-num">3</div>
+        </div>
+    </div>
+
+    <!-- SUCCESS OVERLAY -->
+    <div id="success-overlay" class="success-overlay hidden" role="status" aria-live="polite">
+        <div class="success-card">
+            <div id="success-icon" class="pop-anim" aria-hidden="true">🎉</div>
+            <h2 id="success-title">GREAT JOB!</h2>
+            <p id="success-message">Target key identified!</p>
+            <div id="success-xp">+10 XP</div>
+            <div id="success-streak" class="success-streak-pill hidden">🔥 0 Streak</div>
+        </div>
+    </div>
+
+    <!-- LEVEL COMPLETE OVERLAY -->
+    <div id="level-complete-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="lc-title">
+        <div class="level-complete-card">
+            <div class="celebration-icon" aria-hidden="true">🏆</div>
+            <h2 id="lc-title">LEVEL COMPLETE!</h2>
+            <h3 id="completed-level-title">KEYBOARD EXPLORER</h3>
+            <div id="lc-celebration-stars" class="celebration-stars" aria-hidden="true">⭐⭐⭐</div>
+            <p id="lc-encouragement" class="celebration-encouragement">Amazing work! Keep going!</p>
+            <div class="complete-stats">
+                <p>Missions: <strong id="lc-missions">6 / 6</strong></p>
+                <p>XP Earned: <strong id="lc-xp">+60 XP</strong></p>
+                <p>Best Streak: <strong id="lc-streak">6🔥</strong></p>
+                <p>Accuracy: <strong id="lc-accuracy">100%</strong></p>
+            </div>
+            <div id="lc-badge-unlocked" class="badge-unlock-pill hidden">🏅 New Badge Unlocked!</div>
+            <div class="next-unlock-tag" id="lc-next-unlock">LEVEL 2 UNLOCKED 🔓</div>
+            <button class="btn btn-primary btn-large" id="lc-continue-btn">Continue Quest 🚀</button>
+        </div>
+    </div>
+
+        <!-- VIEW: MAIN MENU -->
+        <section id="view-main-menu" class="view active">
+            <div class="dashboard-hero">
+                <div class="agent-badge-large" id="dash-rank-icon">🟢</div>
+                <h1 class="welcome-heading">Ready for action, <span id="dash-player-name">Agent</span>?</h1>
+                <div class="rank-title" id="dash-rank-title">Keyboard Explorer</div>
+                
+                <!-- XP Progress Card -->
+                <div class="xp-card">
+                    <div class="xp-labels">
+                        <span>XP Progress</span>
+                        <span id="dash-xp-text">0 / 100 XP</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="dash-xp-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-icon">🎯</span>
+                        <span class="stat-value" id="dash-stat-missions">0</span>
+                        <span class="stat-label">Missions</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">🏆</span>
+                        <span class="stat-value" id="dash-stat-badges">0</span>
+                        <span class="stat-label">Badges</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">⚡</span>
+                        <span class="stat-value" id="dash-stat-wpm">0 WPM</span>
+                        <span class="stat-label">Best Speed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation Grid -->
+            <div class="menu-grid">
+                <button class="menu-card primary" id="btn-goto-missions" aria-label="Start Mission">
+                    <span class="card-icon" aria-hidden="true">🚀</span>
+                    <span class="card-title">Start Mission</span>
+                    <span class="card-sub">Play active level challenges</span>
+                </button>
+                <button class="menu-card" id="btn-goto-lab" aria-label="Keyboard Lab">
+                    <span class="card-icon" aria-hidden="true">⌨️</span>
+                    <span class="card-title">Keyboard Lab</span>
+                    <span class="card-sub">Free play & interactive key guide</span>
+                </button>
+                <button class="menu-card" id="btn-goto-achievements" aria-label="Achievements">
+                    <span class="card-icon" aria-hidden="true">🏆</span>
+                    <span class="card-title">Achievements</span>
+                    <span class="card-sub">Badges & unlocked honors</span>
+                </button>
+                <button class="menu-card" id="btn-goto-progress" aria-label="Progress">
+                    <span class="card-icon" aria-hidden="true">📊</span>
+                    <span class="card-title">Progress</span>
+                    <span class="card-sub">View detailed mission logs</span>
+                </button>
+                <button class="menu-card" id="btn-goto-howto" aria-label="How to Play">
+                    <span class="card-icon" aria-hidden="true">❓</span>
+                    <span class="card-title">How to Play</span>
+                    <span class="card-sub">Learn rules and agent ranks</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW: MISSIONS SELECT & ARENA -->
+        <section id="view-missions" class="view hidden mission-screen">
+            <div class="mission-top-nav">
+                <button class="btn btn-secondary back-btn" data-target="view-main-menu">⬅️ Dashboard</button>
+                <!-- Level Selection Tabs -->
+                <div class="level-tabs" id="level-tabs-container">
+                    <button class="tab-btn active" data-level="1">L1: Explorer</button>
+                    <button class="tab-btn locked" data-level="2">🔒 L2: Key Hunter</button>
+                    <button class="tab-btn locked" data-level="3">🔒 L3: Typist</button>
+                    <button class="tab-btn locked" data-level="4">🔒 L4: Shortcut Ninja</button>
+                    <button class="tab-btn locked" data-level="5">🔒 L5: Windows Wizard</button>
+                    <button class="tab-btn boss-tab locked" data-level="6">👑 Boss / Final</button>
+                </div>
+            </div>
+
+            <!-- Active Mission Arena -->
+            <div class="challenge-arena">
+                <div class="challenge-card">
+                    <!-- Integrated Mission Progress Bar -->
+                    <div class="mission-progress">
+                        <div class="mission-progress-top">
+                            <span id="mission-progress-label">Challenge 1 of 6</span>
+                            <span id="input-mode-indicator" class="input-mode-badge">⌨️ Physical Keyboard Active</span>
+                            <span id="mission-xp-label">+10 XP</span>
+                        </div>
+                        <div class="mission-progress-track">
+                            <div id="mission-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="challenge-header">
+                        <span class="challenge-tag" id="challenge-type-tag">KEY FINDER</span>
+                        <div class="streak-banner hidden" id="challenge-streak-banner">🔥 <span id="streak-count-val">3</span>x Streak Bonus!</div>
+                    </div>
+
+                    <div class="prompt-container">
+                        <h3 class="challenge-prompt" id="challenge-instruction">Find the Spacebar!</h3>
+                    </div>
+
+                    <!-- Dynamic Gameplay Workspace Area -->
+                    <div class="workspace-area" id="workspace-area">
+                        <!-- Dynamic challenge inputs -->
+                    </div>
+
+                    <!-- Embedded Virtual Keyboard -->
+                    <div id="arena-keyboard-container" class="v-key-container"></div>
+
+                    <!-- Footer / Hint controls -->
+                    <div class="challenge-footer">
+                        <button class="btn btn-hint" id="btn-trigger-hint">💡 Need a Hint?</button>
+                        <div class="hint-box hidden" id="hint-box">
+                            💡 <strong>Hint:</strong> <span id="hint-text">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: BOSS BATTLE -->
+        <section id="view-boss" class="view hidden mission-screen">
+            <div class="boss-arena-card">
+                <div class="boss-header">
+                    <div class="boss-avatar" id="boss-avatar">🤖</div>
+                    <div class="boss-info">
+                        <h2 id="boss-name">THE KEYBOARD ROBOT</h2>
+                        <div class="boss-hp-bar">
+                            <div class="boss-hp-fill" id="boss-hp-fill" style="width: 100%;"></div>
+                        </div>
+                        <span class="hp-text" id="boss-hp-text">100 / 100 HP</span>
+                    </div>
+                </div>
+
+                <div class="boss-prompt-box">
+                    <div class="timer-pill">⏰ Time Remaining: <span id="boss-timer">60</span>s</div>
+                    <h3 id="boss-current-task">Task loading...</h3>
+                </div>
+
+                <div id="boss-workspace" class="workspace-area"></div>
+                <div id="boss-keyboard-container" class="v-key-container"></div>
+            </div>
+        </section>
+
+        <!-- VIEW: KEYBOARD LAB -->
+        <section id="view-lab" class="view hidden">
+            <div class="view-header">
+                <button class="btn btn-secondary back-btn" data-target="view-main-menu">⬅️ Dashboard</button>
+                <h2>⌨️ Interactive Keyboard Lab</h2>
+            </div>
+
+            <p class="section-intro">Press any key on your physical keyboard or click below to inspect key properties, codes, and OS shortcuts!</p>
+
+            <div class="lab-inspector-card">
+                <div class="inspector-badge" id="lab-key-display">?</div>
+                <div class="inspector-details">
+                    <h3 id="lab-key-name">Press or Click Any Key</h3>
+                    <p><strong>Key Code:</strong> <span id="lab-key-code">N/A</span></p>
+                    <p><strong>Primary Function:</strong> <span id="lab-key-desc">Interactive key guide active.</span></p>
+                    <p><strong>Windows Shortcut:</strong> <span id="lab-key-shortcut">None</span></p>
+                </div>
+            </div>
+
+            <div id="lab-keyboard-container" class="v-key-container"></div>
+        </section>
+
+        <!-- VIEW: ACHIEVEMENTS -->
+        <section id="view-achievements" class="view hidden">
+            <div class="view-header">
+                <button class="btn btn-secondary back-btn" data-target="view-main-menu">⬅️ Dashboard</button>
+                <h2>🏆 Agent Badges & Honors</h2>
+            </div>
+
+            <div class="badges-grid" id="badges-container"></div>
+        </section>
+
+        <!-- VIEW: PROGRESS & LOGS -->
+        <section id="view-progress" class="view hidden">
+            <div class="view-header">
+                <button class="btn btn-secondary back-btn" data-target="view-main-menu">⬅️ Dashboard</button>
+                <h2>📊 Mission Progress Report</h2>
+            </div>
+
+            <div class="progress-details-card">
+                <div class="detail-row"><span>Agent Name:</span> <strong id="prog-name">Agent</strong></div>
+                <div class="detail-row"><span>Current Rank:</span> <strong id="prog-rank">Explorer</strong></div>
+                <div class="detail-row"><span>Total Experience (XP):</span> <strong id="prog-xp">0 XP</strong></div>
+                <div class="detail-row"><span>Next Rank Required:</span> <strong id="prog-next-xp">100 XP</strong></div>
+                <div class="detail-row"><span>Completed Challenges:</span> <strong id="prog-completed">0</strong></div>
+                <div class="detail-row"><span>Best Typing Speed:</span> <strong id="prog-wpm">0 WPM</strong></div>
+                <div class="detail-row"><span>Current Streak:</span> <strong id="prog-streak">0</strong></div>
+            </div>
+
+            <div class="settings-danger-zone">
+                <h3>⚙️ Account Settings</h3>
+                <button class="btn btn-secondary" id="btn-switch-student">👤 Switch Student</button>
+                <button class="btn btn-danger" id="btn-reset-game">Reset All Progress</button>
+            </div>
+        </section>
+
+        <!-- VIEW: HOW TO PLAY -->
+        <section id="view-howto" class="view hidden">
+            <div class="view-header">
+                <button class="btn btn-secondary back-btn" data-target="view-main-menu">⬅️ Dashboard</button>
+                <h2>❓ How to Play</h2>
+            </div>
+
+            <div class="howto-content">
+                <div class="howto-step">
+                    <span class="step-num">1</span>
+                    <div>
+                        <h3>Complete Missions</h3>
+                        <p>Progress through 5 distinct levels, ranging from basic key location to typing accuracy and simulated Windows shortcuts.</p>
+                    </div>
+                </div>
+                <div class="howto-step">
+                    <span class="step-num">2</span>
+                    <div>
+                        <h3>Earn XP & Level Up</h3>
+                        <p>Get bonus XP for streaks and completing challenges without hints. Advance from Explorer to Keyboard Master!</p>
+                    </div>
+                </div>
+                <div class="howto-step">
+                    <span class="step-num">3</span>
+                    <div>
+                        <h3>Defeat Bosses</h3>
+                        <p>Test your speed and accuracy in timed boss battles at the end of key levels.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: FACILITATOR DASHBOARD -->
+        <section id="view-facilitator" class="view hidden">
+            <div class="view-header">
+                <button class="btn btn-secondary back-btn" data-target="view-main-menu">⬅️ Exit Facilitator Mode</button>
+                <h2>🖥️ Facilitator Dashboard - All Students</h2>
+            </div>
+
+            <div class="fac-dashboard-controls">
+                <button class="btn btn-primary" id="btn-refresh-students">🔄 Refresh List</button>
+                <button class="btn btn-secondary" id="btn-export-all">📊 Export All Progress</button>
+                <span class="fac-student-count" id="fac-student-count">0 students</span>
+            </div>
+
+            <div class="students-table-container">
+                <table class="students-table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Level</th>
+                            <th>XP</th>
+                            <th>Missions</th>
+                            <th>Badges</th>
+                            <th>Best WPM</th>
+                            <th>Streak</th>
+                            <th>Accuracy</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-table-body">
+                        <tr>
+                            <td colspan="9" class="empty-state">No student data found yet. Students need to play the game first.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- FACILITATOR MODE MODAL -->
+    <div id="facilitator-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="fac-title">
+        <div class="modal-card">
+            <h2 id="fac-title">🔑 IT Facilitator Dashboard</h2>
+            <p>Overview of current client system state and progress monitoring.</p>
+            <div class="fac-stats-list">
+                <p><strong>Player Name:</strong> <span id="fac-player-name">-</span></p>
+                <p><strong>Highest Unlocked Level:</strong> <span id="fac-level">-</span></p>
+                <p><strong>Total XP:</strong> <span id="fac-xp">-</span></p>
+                <p><strong>Missions Completed:</strong> <span id="fac-shortcuts">-</span></p>
+            </div>
+            <div class="fac-actions">
+                <button class="btn btn-secondary" id="fac-export-btn">Export Progress</button>
+                <button class="btn btn-danger" id="fac-reset-btn">Reset Client Progress</button>
+                <button class="btn btn-secondary" id="fac-close-btn">Close Modal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen Reader Live Region -->
+    <div id="sr-announcer" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+    <!-- XP NOTIFICATION TOAST TEMPLATE CONTAINER -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
