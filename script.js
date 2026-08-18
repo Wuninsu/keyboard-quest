@@ -989,6 +989,22 @@ function loadChallenge() {
 
     instruction.textContent = challenge.question;
     typeTag.textContent = challenge.type.toUpperCase();
+
+    if (challenge.type === "key-finder") {
+        instruction.classList.add("hidden");
+        const existingTarget = document.getElementById("keyfinder-target");
+        if (existingTarget) existingTarget.remove();
+        const targetEl = document.createElement("div");
+        targetEl.className = "keyfinder-target";
+        targetEl.id = "keyfinder-target";
+        targetEl.textContent = challenge.answer;
+        instruction.parentElement.appendChild(targetEl);
+    } else {
+        const existingTarget = document.getElementById("keyfinder-target");
+        if (existingTarget) existingTarget.remove();
+        instruction.classList.remove("hidden");
+    }
+
     hintBox.classList.add("hidden");
     hintText.textContent = challenge.hint;
 

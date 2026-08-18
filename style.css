@@ -453,6 +453,15 @@ body {
     font-weight: 800;
 }
 
+.keyfinder-target {
+    font-size: clamp(2.8rem, 7vh, 5.5rem);
+    font-weight: 900;
+    color: var(--secondary);
+    text-align: center;
+    letter-spacing: 6px;
+    line-height: 1;
+}
+
 .hint-box {
     background: rgba(139, 92, 246, 0.15);
     border: 1px solid #8b5cf6;
