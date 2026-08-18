@@ -320,7 +320,7 @@ body {
 .mission-screen {
     height: calc(100vh - 84px);
     max-height: calc(100vh - 84px);
-    overflow-y: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -454,7 +454,7 @@ body {
 }
 
 .keyfinder-target {
-    font-size: clamp(2.8rem, 7vh, 5.5rem);
+    font-size: clamp(.7rem, 7vh, 2.5rem);
     font-weight: 900;
     color: var(--secondary);
     text-align: center;
@@ -465,13 +465,11 @@ body {
 .hint-box {
     background: rgba(139, 92, 246, 0.15);
     border: 1px solid #8b5cf6;
-    padding: 8px 12px;
+    padding: 6px 12px;
     border-radius: var(--radius-md);
     color: #ddd6fe;
-    font-size: 0.85rem;
-    display: block;
-    width: 100%;
-    line-height: 1.4;
+    font-size: 0.8rem;
+    display: inline-block;
 }
 
 .workspace-area {
@@ -489,9 +487,8 @@ body {
 
 .challenge-footer {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* --- COMPACT RESPONSIVE VIRTUAL KEYBOARD --- */
