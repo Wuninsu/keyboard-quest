@@ -126,9 +126,9 @@ let LEVEL_CHALLENGES = [
     { id: "l4_select", level: 4, type: "shortcut", question: "Perform the shortcut to SELECT ALL text!", answer: "Ctrl+A", hint: "Hold Ctrl and press A.", xp: 30 },
     { id: "l4_save", level: 4, type: "shortcut", question: "Perform the shortcut to SAVE your work!", answer: "Ctrl+S", hint: "Hold Ctrl and press S.", xp: 30 },
     { id: "l4_find", level: 4, type: "shortcut", question: "Perform the shortcut to FIND text!", answer: "Ctrl+F", hint: "Hold Ctrl and press F.", xp: 30 },
-    { id: "l4_new", level: 4, type: "shortcut-info", question: "Perform the shortcut to create a NEW document!", answer: "Ctrl+N", hint: "Hold Ctrl and press N.", xp: 30 },
-    { id: "l4_showdesktop", level: 4, type: "shortcut", question: "Perform the shortcut to SHOW THE DESKTOP!", answer: "Win+D", hint: "Hold the Windows key and press D.", xp: 40 },
-    { id: "l4_explorer", level: 4, type: "shortcut", question: "Perform the shortcut to OPEN FILE EXPLORER!", answer: "Win+E", hint: "Hold the Windows key and press E.", xp: 40 },
+    // { id: "l4_new", level: 4, type: "shortcut-info", question: "Perform the shortcut to create a NEW document!", answer: "Ctrl+N", hint: "Hold Ctrl and press N.", xp: 30 },
+    // { id: "l4_showdesktop", level: 4, type: "shortcut", question: "Perform the shortcut to SHOW THE DESKTOP!", answer: "Win+D", hint: "Hold the Windows key and press D.", xp: 40 },
+    // { id: "l4_explorer", level: 4, type: "shortcut", question: "Perform the shortcut to OPEN FILE EXPLORER!", answer: "Win+E", hint: "Hold the Windows key and press E.", xp: 40 },
     // { id: "l4_switch", level: 4, type: "shortcut", question: "Perform the shortcut to SWITCH BETWEEN OPEN WINDOWS!", answer: "Alt+Tab", hint: "Hold Alt and press Tab.", xp: 40 },
 
     // LEVEL 5: WINDOWS WIZARD - simulated computer tasks
