@@ -156,12 +156,12 @@
                 <button class="btn btn-secondary back-btn" data-target="view-main-menu">⬅️ Dashboard</button>
                 <!-- Level Selection Tabs -->
                 <div class="level-tabs" id="level-tabs-container">
-                    <button class="tab-btn active" data-level="1">L1: Explorer</button>
-                    <button class="tab-btn locked" data-level="2">🔒 L2: Key Hunter</button>
-                    <button class="tab-btn locked" data-level="3">🔒 L3: Typist</button>
-                    <button class="tab-btn locked" data-level="4">🔒 L4: Shortcut Ninja</button>
-                    <button class="tab-btn locked" data-level="5">🔒 L5: Windows Wizard</button>
-                    <button class="tab-btn boss-tab locked" data-level="6">👑 Boss / Final</button>
+                    <button class="tab-btn active" data-level="1">L1: Home Row</button>
+                    <button class="tab-btn locked" data-level="2">🔒 L2: Top Row</button>
+                    <button class="tab-btn locked" data-level="3">🔒 L3: Bottom Row</button>
+                    <button class="tab-btn locked" data-level="4">🔒 L4: Numbers</button>
+                    <button class="tab-btn locked" data-level="5">🔒 L5: Special Keys</button>
+                    <button class="tab-btn boss-tab locked" data-level="6">👑 Final Challenge</button>
                 </div>
             </div>
 
@@ -239,7 +239,7 @@
                 <h2>⌨️ Interactive Keyboard Lab</h2>
             </div>
 
-            <p class="section-intro">Press any key on your physical keyboard or click below to inspect key properties, codes, and OS shortcuts!</p>
+            <p class="section-intro">Press any key on your physical keyboard or click below to inspect key properties, codes, and practice!</p>
 
             <div class="lab-practice-card" id="lab-practice-card">
                 <div class="lab-practice-header">
@@ -298,22 +298,22 @@
                 <div class="howto-step">
                     <span class="step-num">1</span>
                     <div>
-                        <h3>Complete Missions</h3>
-                        <p>Progress through 5 distinct levels, ranging from basic key location to typing accuracy and simulated Windows shortcuts.</p>
+                        <h3>Find Keys on the Keyboard</h3>
+                        <p>Start with the home row keys (A, S, D, F, G, H, J, K, L), then learn the top row, bottom row, numbers, and special keys.</p>
                     </div>
                 </div>
                 <div class="howto-step">
                     <span class="step-num">2</span>
                     <div>
-                        <h3>Earn XP & Level Up</h3>
-                        <p>Get bonus XP for streaks and completing challenges without hints. Advance from Explorer to Keyboard Master!</p>
+                        <h3>Type Simple Words</h3>
+                        <p>Practice typing fun words and short phrases. Take your time and enjoy learning!</p>
                     </div>
                 </div>
                 <div class="howto-step">
                     <span class="step-num">3</span>
                     <div>
-                        <h3>Defeat Bosses</h3>
-                        <p>Test your speed and accuracy in timed boss battles at the end of key levels.</p>
+                        <h3>Earn XP & Badges</h3>
+                        <p>Complete challenges to earn XP and unlock badges. Build your keyboard skills one key at a time!</p>
                     </div>
                 </div>
             </div>
@@ -362,11 +362,11 @@
         <div class="modal-card">
             <h2 id="fac-title">🔑 IT Facilitator Dashboard</h2>
             <p>Overview of current client system state and progress monitoring.</p>
-            <div class="fac-stats-list">
+                <div class="fac-stats-list">
                 <p><strong>Player Name:</strong> <span id="fac-player-name">-</span></p>
                 <p><strong>Highest Unlocked Level:</strong> <span id="fac-level">-</span></p>
                 <p><strong>Total XP:</strong> <span id="fac-xp">-</span></p>
-                <p><strong>Missions Completed:</strong> <span id="fac-shortcuts">-</span></p>
+                <p><strong>Challenges Completed:</strong> <span id="fac-shortcuts">-</span></p>
             </div>
             <div class="fac-actions">
                 <button class="btn btn-secondary" id="fac-export-btn">Export Progress</button>

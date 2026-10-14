@@ -8,22 +8,21 @@
 const RANKS = [
     { title: "Keyboard Explorer", icon: "🟢", minXP: 0 },
     { title: "Key Hunter", icon: "🔵", minXP: 100 },
-    { title: "Typing Adventurer", icon: "🟡", minXP: 250 },
-    { title: "Shortcut Ninja", icon: "🟠", minXP: 450 },
-    { title: "Windows Wizard", icon: "🔴", minXP: 700 },
+    { title: "Letter Learner", icon: "🟡", minXP: 250 },
+    { title: "Word Builder", icon: "🟠", minXP: 450 },
+    { title: "Keyboard Champion", icon: "🔴", minXP: 700 },
     { title: "Keyboard Master", icon: "🏆", minXP: 1000 }
 ];
 
 const BADGES = [
     { id: "first_mission", title: "First Mission", icon: "🏅", desc: "Completed your first challenge." },
-    { id: "kb_explorer", title: "Keyboard Explorer", icon: "⌨️", desc: "Completed Level 1 Explorer missions." },
-    { id: "key_hunter", title: "Key Hunter", icon: "🔤", desc: "Mastered Level 2 key detection." },
-    { id: "speed_typist", title: "Speed Typist", icon: "⚡", desc: "Achieved over 20 WPM in typing." },
-    { id: "accuracy_expert", title: "Accuracy Expert", icon: "🎯", desc: "Completed a typing test with high accuracy." },
-    { id: "shortcut_ninja", title: "Shortcut Ninja", icon: "🥷", desc: "Learned essential Windows shortcuts." },
-    { id: "win_wizard", title: "Windows Wizard", icon: "🪟", desc: "Completed simulated OS tasks." },
-    { id: "robot_destroyer", title: "Robot Destroyer", icon: "🤖", desc: "Defeated the Keyboard Robot Boss!" },
-    { id: "kb_master", title: "Keyboard Master", icon: "🏆", desc: "Completed the Final Trial!" }
+    { id: "home_row_hero", title: "Home Row Hero", icon: "⌨️", desc: "Mastered the home row keys!" },
+    { id: "top_row_typer", title: "Top Row Typer", icon: "🔤", desc: "Found all top row letters." },
+    { id: "bottom_row_buddy", title: "Bottom Row Buddy", icon: "🔡", desc: "Found all bottom row letters." },
+    { id: "number_navigator", title: "Number Navigator", icon: "🔢", desc: "Found all number keys." },
+    { id: "special_keys", title: "Special Keys", icon: "⭐", desc: "Learned the special keys." },
+    { id: "word_builder", title: "Word Builder", icon: "📝", desc: "Typed your first words." },
+    { id: "kb_master", title: "Keyboard Master", icon: "🏆", desc: "Completed all levels!" }
 ];
 
 const KEYBOARD_LAYOUT = [
@@ -48,100 +47,75 @@ const KEY_DESCRIPTIONS = {
 };
 
 let LEVEL_CHALLENGES = [
-    // LEVEL 1: EXPLORER - learn the important keyboard keys
-    { id: "l1_space", level: 1, type: "key-finder", question: "Find the key that creates a space between words!", answer: "Space", hint: "It is the longest key at the bottom of the keyboard.", xp: 10 },
-    { id: "l1_enter", level: 1, type: "key-finder", question: "Find the key used to execute a command or move to a new line!", answer: "Enter", hint: "Look on the right side of the letter keys.", xp: 10 },
-    { id: "l1_backspace", level: 1, type: "key-finder", question: "Find the key used to erase text to the left!", answer: "Backspace", hint: "It is near the top-right of the main keyboard.", xp: 10 },
-    { id: "l1_shift", level: 1, type: "key-finder", question: "Find the key used to type a capital letter!", answer: "Shift", hint: "There are Shift keys on both sides of the keyboard.", xp: 10 },
-    { id: "l1_ctrl", level: 1, type: "key-finder", question: "Find the Control key used with shortcuts!", answer: "Ctrl", hint: "Look at the bottom-left or bottom-right.", xp: 10 },
-    { id: "l1_alt", level: 1, type: "key-finder", question: "Find the Alt key!", answer: "Alt", hint: "It is beside the Spacebar.", xp: 10 },
-    { id: "l1_tab", level: 1, type: "key-finder", question: "Find the Tab key used to move between areas!", answer: "Tab", hint: "It is on the left side, above Caps Lock.", xp: 10 },
-    { id: "l1_caps", level: 1, type: "key-finder", question: "Find Caps Lock, the key that helps you type CAPITAL letters!", answer: "Caps Lock", hint: "It is on the left side of the home row.", xp: 10 },
-    { id: "l1_win", level: 1, type: "key-finder", question: "Find the Windows key!", answer: "Win", hint: "Look between Ctrl and Alt.", xp: 10 },
-    { id: "l1_esc", level: 1, type: "key-finder", question: "Find the Escape key!", answer: "Esc", hint: "It is at the top-left corner.", xp: 10 },
-    { id: "l1_delete", level: 1, type: "key-finder", question: "Find the Backspace key used to delete text to the left of the cursor.", answer: "Backspace", hint: "It is near the top-right of the main keyboard.", xp: 10 },
-    { id: "l1_f1", level: 1, type: "key-finder", question: "Find the F1 key!", answer: "F1", hint: "Look along the top row of function keys.", xp: 10 },
+    // LEVEL 1: HOME ROW HEROES - A, S, D, F, G, H, J, K, L + Space
+    { id: "l1_a", level: 1, type: "key-finder", question: "Find the letter A!", answer: "A", hint: "It is the first letter on the home row.", xp: 10 },
+    { id: "l1_s", level: 1, type: "key-finder", question: "Find the letter S!", answer: "S", hint: "It is next to A.", xp: 10 },
+    { id: "l1_d", level: 1, type: "key-finder", question: "Find the letter D!", answer: "D", hint: "It is next to S.", xp: 10 },
+    { id: "l1_f", level: 1, type: "key-finder", question: "Find the letter F!", answer: "F", hint: "It is near the middle of the home row.", xp: 10 },
+    { id: "l1_g", level: 1, type: "key-finder", question: "Find the letter G!", answer: "G", hint: "Look between F and H.", xp: 10 },
+    { id: "l1_h", level: 1, type: "key-finder", question: "Find the letter H!", answer: "H", hint: "It is next to G.", xp: 10 },
+    { id: "l1_j", level: 1, type: "key-finder", question: "Find the letter J!", answer: "J", hint: "Look to the right of H.", xp: 10 },
+    { id: "l1_k", level: 1, type: "key-finder", question: "Find the letter K!", answer: "K", hint: "Look next to J.", xp: 10 },
+    { id: "l1_l", level: 1, type: "key-finder", question: "Find the letter L!", answer: "L", hint: "It is next to K.", xp: 10 },
+    { id: "l1_space", level: 1, type: "key-finder", question: "Find the Spacebar!", answer: "Space", hint: "It is the longest key at the bottom.", xp: 10 },
 
-    // LEVEL 2: KEY HUNTER - letters and numbers
-    { id: "l2_q", level: 2, type: "key-finder", question: "Find the letter Q.", answer: "Q", hint: "It is the first letter on the top letter row.", xp: 15 },
-    { id: "l2_w", level: 2, type: "key-finder", question: "Find the letter W.", answer: "W", hint: "Look next to Q.", xp: 15 },
-    { id: "l2_e", level: 2, type: "key-finder", question: "Find the letter E.", answer: "E", hint: "It is between W and R.", xp: 15 },
-    { id: "l2_r", level: 2, type: "key-finder", question: "Find the letter R.", answer: "R", hint: "Look after E on the top letter row.", xp: 15 },
-    { id: "l2_t", level: 2, type: "key-finder", question: "Find the letter T.", answer: "T", hint: "It is after R.", xp: 15 },
-    { id: "l2_y", level: 2, type: "key-finder", question: "Find the letter Y.", answer: "Y", hint: "Look after T on the top letter row.", xp: 15 },
-    { id: "l2_u", level: 2, type: "key-finder", question: "Find the letter U.", answer: "U", hint: "It is after Y.", xp: 15 },
-    { id: "l2_i", level: 2, type: "key-finder", question: "Find the letter I.", answer: "I", hint: "Look after U.", xp: 15 },
-    { id: "l2_o", level: 2, type: "key-finder", question: "Find the letter O.", answer: "O", hint: "Look after I.", xp: 15 },
-    { id: "l2_p", level: 2, type: "key-finder", question: "Find the letter P.", answer: "P", hint: "It is near the right end of the top letter row.", xp: 15 },
+    // LEVEL 2: TOP ROW TEAM - Q, W, E, R, T, Y, U, I, O, P
+    { id: "l2_q", level: 2, type: "key-finder", question: "Find the letter Q!", answer: "Q", hint: "It is the first letter on the top row.", xp: 15 },
+    { id: "l2_w", level: 2, type: "key-finder", question: "Find the letter W!", answer: "W", hint: "Look next to Q.", xp: 15 },
+    { id: "l2_e", level: 2, type: "key-finder", question: "Find the letter E!", answer: "E", hint: "It is between W and R.", xp: 15 },
+    { id: "l2_r", level: 2, type: "key-finder", question: "Find the letter R!", answer: "R", hint: "Look after E.", xp: 15 },
+    { id: "l2_t", level: 2, type: "key-finder", question: "Find the letter T!", answer: "T", hint: "It is after R.", xp: 15 },
+    { id: "l2_y", level: 2, type: "key-finder", question: "Find the letter Y!", answer: "Y", hint: "Look after T.", xp: 15 },
+    { id: "l2_u", level: 2, type: "key-finder", question: "Find the letter U!", answer: "U", hint: "It is after Y.", xp: 15 },
+    { id: "l2_i", level: 2, type: "key-finder", question: "Find the letter I!", answer: "I", hint: "Look after U.", xp: 15 },
+    { id: "l2_o", level: 2, type: "key-finder", question: "Find the letter O!", answer: "O", hint: "Look after I.", xp: 15 },
+    { id: "l2_p", level: 2, type: "key-finder", question: "Find the letter P!", answer: "P", hint: "It is near the right end of the top row.", xp: 15 },
 
-    { id: "l2_a", level: 2, type: "key-finder", question: "Find the letter A.", answer: "A", hint: "It is the first letter on the home row.", xp: 15 },
-    { id: "l2_s", level: 2, type: "key-finder", question: "Find the letter S.", answer: "S", hint: "It is next to A.", xp: 15 },
-    { id: "l2_d", level: 2, type: "key-finder", question: "Find the letter D.", answer: "D", hint: "It is next to S.", xp: 15 },
-    { id: "l2_f", level: 2, type: "key-finder", question: "Find the letter F.", answer: "F", hint: "It is near the middle of the home row.", xp: 15 },
-    { id: "l2_g", level: 2, type: "key-finder", question: "Find the letter G.", answer: "G", hint: "Look in the middle row near F and H.", xp: 15 },
-    { id: "l2_h", level: 2, type: "key-finder", question: "Find the letter H.", answer: "H", hint: "It is immediately to the right of G.", xp: 15 },
-    { id: "l2_j", level: 2, type: "key-finder", question: "Find the letter J.", answer: "J", hint: "Look to the right of H.", xp: 15 },
-    { id: "l2_k", level: 2, type: "key-finder", question: "Find the letter K.", answer: "K", hint: "Look next to J.", xp: 15 },
-    { id: "l2_l", level: 2, type: "key-finder", question: "Find the letter L.", answer: "L", hint: "It is next to K on the home row.", xp: 15 },
+    // LEVEL 3: BOTTOM ROW BUDDIES - Z, X, C, V, B, N, M
+    { id: "l3_z", level: 3, type: "key-finder", question: "Find the letter Z!", answer: "Z", hint: "It starts the bottom letter row.", xp: 15 },
+    { id: "l3_x", level: 3, type: "key-finder", question: "Find the letter X!", answer: "X", hint: "Look next to Z.", xp: 15 },
+    { id: "l3_c", level: 3, type: "key-finder", question: "Find the letter C!", answer: "C", hint: "Look after X.", xp: 15 },
+    { id: "l3_v", level: 3, type: "key-finder", question: "Find the letter V!", answer: "V", hint: "Look after C.", xp: 15 },
+    { id: "l3_b", level: 3, type: "key-finder", question: "Find the letter B!", answer: "B", hint: "It is near the middle of the bottom row.", xp: 15 },
+    { id: "l3_n", level: 3, type: "key-finder", question: "Find the letter N!", answer: "N", hint: "It is next to B.", xp: 15 },
+    { id: "l3_m", level: 3, type: "key-finder", question: "Find the letter M!", answer: "M", hint: "It is at the end of the bottom row.", xp: 15 },
 
-    { id: "l2_z", level: 2, type: "key-finder", question: "Find the letter Z.", answer: "Z", hint: "It starts the bottom letter row.", xp: 15 },
-    { id: "l2_x", level: 2, type: "key-finder", question: "Find the letter X.", answer: "X", hint: "Look next to Z.", xp: 15 },
-    { id: "l2_c", level: 2, type: "key-finder", question: "Find the letter C.", answer: "C", hint: "Look after X.", xp: 15 },
-    { id: "l2_v", level: 2, type: "key-finder", question: "Find the letter V.", answer: "V", hint: "Look after C.", xp: 15 },
-    { id: "l2_b", level: 2, type: "key-finder", question: "Find the letter B.", answer: "B", hint: "It is near the middle of the bottom row.", xp: 15 },
-    { id: "l2_n", level: 2, type: "key-finder", question: "Find the letter N.", answer: "N", hint: "It is next to B.", xp: 15 },
-    { id: "l2_m", level: 2, type: "key-finder", question: "Find the letter M.", answer: "M", hint: "It is on the bottom row after N.", xp: 15 },
+    // LEVEL 4: NUMBER NAVIGATORS - 1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+    { id: "l4_1", level: 4, type: "key-finder", question: "Find number 1!", answer: "1", hint: "Look at the top number row.", xp: 15 },
+    { id: "l4_2", level: 4, type: "key-finder", question: "Find number 2!", answer: "2", hint: "It is next to 1.", xp: 15 },
+    { id: "l4_3", level: 4, type: "key-finder", question: "Find number 3!", answer: "3", hint: "It is next to 2.", xp: 15 },
+    { id: "l4_4", level: 4, type: "key-finder", question: "Find number 4!", answer: "4", hint: "It is after 3.", xp: 15 },
+    { id: "l4_5", level: 4, type: "key-finder", question: "Find number 5!", answer: "5", hint: "It is near the middle of the number row.", xp: 15 },
+    { id: "l4_6", level: 4, type: "key-finder", question: "Find number 6!", answer: "6", hint: "It is after 5.", xp: 15 },
+    { id: "l4_7", level: 4, type: "key-finder", question: "Find number 7!", answer: "7", hint: "Look at the top number row.", xp: 15 },
+    { id: "l4_8", level: 4, type: "key-finder", question: "Find number 8!", answer: "8", hint: "It is after 7.", xp: 15 },
+    { id: "l4_9", level: 4, type: "key-finder", question: "Find number 9!", answer: "9", hint: "It is near the right side of the number row.", xp: 15 },
+    { id: "l4_0", level: 4, type: "key-finder", question: "Find number 0!", answer: "0", hint: "It comes after 9.", xp: 15 },
 
-    { id: "l2_1", level: 2, type: "key-finder", question: "Find number 1.", answer: "1", hint: "Look at the top number row.", xp: 15 },
-    { id: "l2_2", level: 2, type: "key-finder", question: "Find number 2.", answer: "2", hint: "It is next to 1.", xp: 15 },
-    { id: "l2_3", level: 2, type: "key-finder", question: "Find number 3.", answer: "3", hint: "It is next to 2.", xp: 15 },
-    { id: "l2_4", level: 2, type: "key-finder", question: "Find number 4.", answer: "4", hint: "It is after 3.", xp: 15 },
-    { id: "l2_5", level: 2, type: "key-finder", question: "Find number 5.", answer: "5", hint: "It is near the middle of the number row.", xp: 15 },
-    { id: "l2_6", level: 2, type: "key-finder", question: "Find number 6.", answer: "6", hint: "It is immediately after 5.", xp: 15 },
-    { id: "l2_7", level: 2, type: "key-finder", question: "Find number 7.", answer: "7", hint: "Look at the top number row.", xp: 15 },
-    { id: "l2_8", level: 2, type: "key-finder", question: "Find number 8.", answer: "8", hint: "It is after 7.", xp: 15 },
-    { id: "l2_9", level: 2, type: "key-finder", question: "Find number 9.", answer: "9", hint: "It is near the right side of the number row.", xp: 15 },
-    { id: "l2_0", level: 2, type: "key-finder", question: "Find number 0.", answer: "0", hint: "It comes after 9.", xp: 15 },
+    // LEVEL 5: SPECIAL KEYS - Space, Enter, Backspace, Shift, Caps Lock, Tab
+    { id: "l5_space", level: 5, type: "key-finder", question: "Find the Spacebar!", answer: "Space", hint: "It is the longest key at the bottom.", xp: 15 },
+    { id: "l5_enter", level: 5, type: "key-finder", question: "Find the Enter Key!", answer: "Enter", hint: "Look on the right side of the letter keys.", xp: 15 },
+    { id: "l5_backspace", level: 5, type: "key-finder", question: "Find the Backspace Key!", answer: "Backspace", hint: "It is near the top-right of the main keyboard.", xp: 15 },
+    { id: "l5_shift", level: 5, type: "key-finder", question: "Find the Shift Key!", answer: "Shift", hint: "There are Shift keys on both sides of the keyboard.", xp: 15 },
+    { id: "l5_caps", level: 5, type: "key-finder", question: "Find Caps Lock!", answer: "Caps Lock", hint: "It is on the left side of the home row.", xp: 15 },
+    { id: "l5_tab", level: 5, type: "key-finder", question: "Find the Tab Key!", answer: "Tab", hint: "It is on the left side, above Caps Lock.", xp: 15 },
 
-    // LEVEL 3: TYPING ADVENTURER - words -> phrases -> sentences
-    { id: "l3_word1", level: 3, type: "typing", question: "Type this word:", answer: "school", hint: "Type the word school exactly as shown.", xp: 20 },
-    { id: "l3_word2", level: 3, type: "typing", question: "Type this word:", answer: "computer", hint: "Type the word computer exactly as shown.", xp: 20 },
-    { id: "l3_word3", level: 3, type: "typing", question: "Type this word:", answer: "keyboard", hint: "Type the word keyboard exactly as shown.", xp: 20 },
-    { id: "l3_word4", level: 3, type: "typing", question: "Type this word:", answer: "friend", hint: "Type the word friend exactly as shown.", xp: 20 },
-    { id: "l3_phrase1", level: 3, type: "typing", question: "Type this short phrase:", answer: "good morning", hint: "Remember the space between the two words.", xp: 25 },
-    { id: "l3_phrase2", level: 3, type: "typing", question: "Type this short phrase:", answer: "my computer", hint: "Type both words with one space.", xp: 25 },
-    { id: "l3_phrase3", level: 3, type: "typing", question: "Type this short phrase:", answer: "learn and play", hint: "Watch the spaces carefully.", xp: 25 },
-    { id: "l3_phrase4", level: 3, type: "typing", question: "Type this short phrase:", answer: "I can type", hint: "Use a capital I and the correct spaces.", xp: 25 },
-    { id: "l3_sentence1", level: 3, type: "typing", question: "Complete the sentence by typing the full sentence:", answer: "I use a computer.", hint: "Start with a capital I and finish with a full stop.", xp: 35 },
-    { id: "l3_sentence2", level: 3, type: "typing", question: "Complete the sentence by typing the full sentence:", answer: "I like learning.", hint: "Type the sentence exactly as shown.", xp: 35 },
-    { id: "l3_sentence3", level: 3, type: "typing", question: "Complete the sentence by typing the full sentence:", answer: "The keyboard has many keys.", hint: "Check every word, space, and the full stop.", xp: 40 },
-    { id: "l3_sentence4", level: 3, type: "typing", question: "Complete the sentence by typing the full sentence:", answer: "I am a computer learner.", hint: "Take your time and aim for 100% accuracy.", xp: 40 },
-
-    // LEVEL 4: SHORTCUT NINJA - common Windows shortcuts
-    { id: "l4_copy", level: 4, type: "shortcut", question: "Perform the shortcut to COPY text!", answer: "Ctrl+C", hint: "Hold Ctrl and press C.", xp: 30 },
-    { id: "l4_paste", level: 4, type: "shortcut", question: "Perform the shortcut to PASTE text!", answer: "Ctrl+V", hint: "Hold Ctrl and press V.", xp: 30 },
-    { id: "l4_cut", level: 4, type: "shortcut", question: "Perform the shortcut to CUT text!", answer: "Ctrl+X", hint: "Hold Ctrl and press X.", xp: 30 },
-    { id: "l4_undo", level: 4, type: "shortcut", question: "Perform the shortcut to UNDO an action!", answer: "Ctrl+Z", hint: "Hold Ctrl and press Z.", xp: 30 },
-    { id: "l4_redo", level: 4, type: "shortcut", question: "Perform the shortcut to REDO an action!", answer: "Ctrl+Y", hint: "Hold Ctrl and press Y.", xp: 30 },
-    { id: "l4_select", level: 4, type: "shortcut", question: "Perform the shortcut to SELECT ALL text!", answer: "Ctrl+A", hint: "Hold Ctrl and press A.", xp: 30 },
-    { id: "l4_save", level: 4, type: "shortcut", question: "Perform the shortcut to SAVE your work!", answer: "Ctrl+S", hint: "Hold Ctrl and press S.", xp: 30 },
-    { id: "l4_find", level: 4, type: "shortcut", question: "Perform the shortcut to FIND text!", answer: "Ctrl+F", hint: "Hold Ctrl and press F.", xp: 30 },
-    // { id: "l4_new", level: 4, type: "shortcut-info", question: "Perform the shortcut to create a NEW document!", answer: "Ctrl+N", hint: "Hold Ctrl and press N.", xp: 30 },
-    // { id: "l4_showdesktop", level: 4, type: "shortcut", question: "Perform the shortcut to SHOW THE DESKTOP!", answer: "Win+D", hint: "Hold the Windows key and press D.", xp: 40 },
-    // { id: "l4_explorer", level: 4, type: "shortcut", question: "Perform the shortcut to OPEN FILE EXPLORER!", answer: "Win+E", hint: "Hold the Windows key and press E.", xp: 40 },
-    // { id: "l4_switch", level: 4, type: "shortcut", question: "Perform the shortcut to SWITCH BETWEEN OPEN WINDOWS!", answer: "Alt+Tab", hint: "Hold Alt and press Tab.", xp: 40 },
-
-    // LEVEL 5: WINDOWS WIZARD - simulated computer tasks
-    { id: "l5_homework", level: 5, type: "simulated-os", question: "Open Documents and create a folder named Homework.", answer: "OS_TASK_COMPLETE", hint: "Open Documents, then choose New Folder.", xp: 40 },
-    { id: "l5_photos", level: 5, type: "simulated-os", question: "Open Pictures and create a folder named My Photos.", answer: "OS_TASK_COMPLETE", hint: "Open Pictures, then create a new folder.", xp: 45 },
-    { id: "l5_school", level: 5, type: "simulated-os", question: "Open Documents and create a folder named School Work.", answer: "OS_TASK_COMPLETE", hint: "Open Documents and use New Folder.", xp: 45 },
-    { id: "l5_projects", level: 5, type: "simulated-os", question: "Open Documents and create a folder named Projects.", answer: "OS_TASK_COMPLETE", hint: "Open Documents, then create the requested folder.", xp: 45 },
-    { id: "l5_music", level: 5, type: "simulated-os", question: "Open Documents and create a folder named Music.", answer: "OS_TASK_COMPLETE", hint: "Open Documents, then create the requested folder.", xp: 45 },
-    { id: "l5_videos", level: 5, type: "simulated-os", question: "Open Pictures and create a folder named Videos.", answer: "OS_TASK_COMPLETE", hint: "Open Pictures, then create the requested folder.", xp: 50 },
-    { id: "l5_downloads", level: 5, type: "simulated-os", question: "Open Documents and create a folder named Downloads.", answer: "OS_TASK_COMPLETE", hint: "Open Documents, then create the requested folder.", xp: 50 },
-    { id: "l5_backup", level: 5, type: "simulated-os", question: "Open Documents and create a folder named Backup.", answer: "OS_TASK_COMPLETE", hint: "Open Documents, then create the requested folder.", xp: 50 },
-    { id: "l5_work", level: 5, type: "simulated-os", question: "Open Documents and create a folder named Work.", answer: "OS_TASK_COMPLETE", hint: "Open Documents, then create the requested folder.", xp: 50 },
-    { id: "l5_personal", level: 5, type: "simulated-os", question: "Open Pictures and create a folder named Personal.", answer: "OS_TASK_COMPLETE", hint: "Open Pictures, then create the requested folder.", xp: 50 }
+    // FUN TYPING - simple words and short phrases
+    { id: "ty_cat", level: 3, type: "typing", question: "Type this word:", answer: "cat", hint: "Type the word cat.", xp: 20 },
+    { id: "ty_dog", level: 3, type: "typing", question: "Type this word:", answer: "dog", hint: "Type the word dog.", xp: 20 },
+    { id: "ty_sun", level: 3, type: "typing", question: "Type this word:", answer: "sun", hint: "Type the word sun.", xp: 20 },
+    { id: "ty_fun", level: 3, type: "typing", question: "Type this word:", answer: "fun", hint: "Type the word fun.", xp: 20 },
+    { id: "ty_play", level: 3, type: "typing", question: "Type this word:", answer: "play", hint: "Type the word play.", xp: 25 },
+    { id: "ty_school", level: 3, type: "typing", question: "Type this word:", answer: "school", hint: "Type the word school.", xp: 25 },
+    { id: "ty_friend", level: 3, type: "typing", question: "Type this word:", answer: "friend", hint: "Type the word friend.", xp: 25 },
+    { id: "ty_hello", level: 3, type: "typing", question: "Type this word:", answer: "hello", hint: "Type the word hello.", xp: 25 },
+    { id: "ty_blue", level: 3, type: "typing", question: "Type this word:", answer: "blue", hint: "Type the word blue.", xp: 25 },
+    { id: "ty_tree", level: 3, type: "typing", question: "Type this word:", answer: "tree", hint: "Type the word tree.", xp: 25 },
+    { id: "ty_i_like", level: 3, type: "typing", question: "Type this phrase:", answer: "I like cats", hint: "Type the phrase I like cats.", xp: 30 },
+    { id: "ty_my_cat", level: 3, type: "typing", question: "Type this phrase:", answer: "My cat is fun", hint: "Type the phrase My cat is fun.", xp: 30 },
+    { id: "ty_go_play", level: 3, type: "typing", question: "Type this phrase:", answer: "Go play outside", hint: "Type the phrase Go play outside.", xp: 30 },
+    { id: "ty_i_read", level: 3, type: "typing", question: "Type this phrase:", answer: "I read books", hint: "Type the phrase I read books.", xp: 30 },
+    { id: "ty_the_cat", level: 3, type: "typing", question: "Type this phrase:", answer: "The cat ran fast", hint: "Type the phrase The cat ran fast.", xp: 35 }
 ];
 
 // --- 2. STATE MANAGEMENT ---
@@ -185,8 +159,6 @@ const STREAK_XP_MULTIPLIERS = [
 ];
 const TIMING = { successAdvance: 1200, levelCompleteDisplay: 2800, countdownTick: 700 };
 const NO_HINT_BONUS_XP = 10;
-const TYPING_ACCURACY_PERFECT_BONUS = 15;
-const TYPING_ACCURACY_GOOD_BONUS = 5;
 const BOSS_XP_REWARD = 100;
 
 function normalizeKey(e) {
@@ -478,7 +450,6 @@ function setPhysicalModeIndicator(isPhysical) {
 // --- 7. UI ROUTING & HUD UPDATE ---
 
 function navigateTo(viewId) {
-    cleanupShortcutListener();
     cleanupLabListeners();
     const target = document.getElementById(viewId);
     if (!target) {
@@ -536,12 +507,12 @@ function updateLevelTabs() {
         if (level <= gameState.maxUnlockedLevel) {
             btn.classList.remove("locked");
             let levelTitle = `L${level}`;
-            if (level === 1) levelTitle = "L1: Explorer";
-            if (level === 2) levelTitle = "L2: Key Hunter";
-            if (level === 3) levelTitle = "L3: Typist";
-            if (level === 4) levelTitle = "L4: Shortcut";
-            if (level === 5) levelTitle = "L5: Wizard";
-            if (level === 6) levelTitle = "👑 Boss";
+            if (level === 1) levelTitle = "L1: Home Row";
+            if (level === 2) levelTitle = "L2: Top Row";
+            if (level === 3) levelTitle = "L3: Bottom Row";
+            if (level === 4) levelTitle = "L4: Numbers";
+            if (level === 5) levelTitle = "L5: Special Keys";
+            if (level === 6) levelTitle = "👑 Final Challenge";
             btn.textContent = levelTitle;
         } else {
             btn.classList.add("locked");
@@ -745,7 +716,7 @@ function completeChallenge(challenge, options = {}) {
     challengeCompleted = true;
 
     playSound("correct");
-    cleanupShortcutListener();
+    cleanupLabListeners();
 
     recordAttempt(true);
     gameState.streak++;
@@ -846,11 +817,11 @@ function runCountdown(callback) {
 function handleLevelCompletion() {
     let unlockedBadge = null;
 
-    if (currentActiveLevel === 1) if (unlockBadge("kb_explorer")) unlockedBadge = "Keyboard Explorer";
-    if (currentActiveLevel === 2) if (unlockBadge("key_hunter")) unlockedBadge = "Key Hunter";
-    if (currentActiveLevel === 3) if (unlockBadge("accuracy_expert")) unlockedBadge = "Accuracy Expert";
-    if (currentActiveLevel === 4) if (unlockBadge("shortcut_ninja")) unlockedBadge = "Shortcut Ninja";
-    if (currentActiveLevel === 5) if (unlockBadge("win_wizard")) unlockedBadge = "Windows Wizard";
+    if (currentActiveLevel === 1) if (unlockBadge("home_row_hero")) unlockedBadge = "Home Row Hero";
+    if (currentActiveLevel === 2) if (unlockBadge("top_row_typer")) unlockedBadge = "Top Row Typer";
+    if (currentActiveLevel === 3) if (unlockBadge("bottom_row_buddy")) unlockedBadge = "Bottom Row Buddy";
+    if (currentActiveLevel === 4) if (unlockBadge("number_navigator")) unlockedBadge = "Number Navigator";
+    if (currentActiveLevel === 5) if (unlockBadge("special_keys")) unlockedBadge = "Special Keys";
 
     const nextLevel = currentActiveLevel + 1;
 
@@ -894,7 +865,7 @@ function handleLevelCompletion() {
     if (currentActiveLevel < 5) {
         nextUnlock.textContent = `LEVEL ${nextLevel} UNLOCKED! GET READY...`;
     } else if (currentActiveLevel === 5) {
-        nextUnlock.textContent = "👑 FINAL BOSS UNLOCKED! GET READY...";
+        nextUnlock.textContent = "👑 FINAL CHALLENGE! GET READY...";
     } else {
         nextUnlock.textContent = "🏆 YOU ARE A KEYBOARD MASTER!";
     }
@@ -912,7 +883,7 @@ function handleLevelCompletion() {
             showToast(`🚀 Level ${nextLevel} unlocked! Starting your next adventure!`);
             startLevelMissions(nextLevel);
         } else if (currentActiveLevel === 5) {
-            showToast("👑 You completed every level! Final Boss incoming!");
+            showToast("👑 Final Challenge incoming!");
             startLevelMissions(6);
         } else {
             navigateTo("view-main-menu");
@@ -951,7 +922,6 @@ function startLevelMissions(levelNum) {
 }
 
 function loadChallenge() {
-    cleanupShortcutListener();
     challengeCompleted = false;
     hintUsedCurrent = false;
     wrongAttemptsCurrent = 0;
@@ -1026,19 +996,6 @@ function loadChallenge() {
         } else if (challenge.type === "typing") {
             kbContainer.classList.add("hidden");
             setupTypingChallenge(workspace, challenge);
-        } else if (challenge.type === "shortcut") {
-            kbContainer.classList.remove("hidden");
-            renderVirtualKeyboard("arena-keyboard-container", null);
-            const shortcutMsg = document.createElement("p");
-            shortcutMsg.style.fontSize = "1.1rem";
-            shortcutMsg.style.color = "var(--secondary)";
-            shortcutMsg.style.textAlign = "center";
-            shortcutMsg.textContent = "Press the key combination on your physical keyboard!";
-            workspace.appendChild(shortcutMsg);
-            setupShortcutListener(challenge);
-        } else if (challenge.type === "simulated-os") {
-            kbContainer.classList.add("hidden");
-            setupSimulatedOSWorkspace(workspace, challenge);
         }
     } catch (err) {
         console.error("[KeyboardQuest] Failed to load challenge:", challenge.id, err);
@@ -1109,114 +1066,40 @@ function setupTypingChallenge(workspace, challenge) {
     const feedback = document.createElement("div");
     feedback.className = "typing-feedback-pill";
 
-    const accSpan = document.createElement("span");
-    const accText = document.createElement("span");
-    accText.textContent = "Accuracy: ";
-    const accValue = document.createElement("span");
-    accValue.id = "type-accuracy";
-    accValue.className = "accuracy good";
-    accValue.textContent = "100%";
-    accSpan.append(accText, accValue);
+    const msgSpan = document.createElement("span");
+    msgSpan.id = "type-message";
+    msgSpan.textContent = "Type the word above!";
+    feedback.appendChild(msgSpan);
 
-    const misSpan = document.createElement("span");
-    const misText = document.createElement("span");
-    misText.textContent = "Mistakes: ";
-    const misValue = document.createElement("span");
-    misValue.id = "type-mistakes";
-    misValue.textContent = "0";
-    misSpan.append(misText, misValue);
-
-    feedback.append(accSpan, misSpan);
     workspace.append(targetText, input, feedback);
 
     const typingInput = document.getElementById("typing-input");
-    // Explicitly focus the input element
     setTimeout(() => typingInput.focus(), 50);
 
-    const accuracyEl = document.getElementById("type-accuracy");
-    const mistakesEl = document.getElementById("type-mistakes");
-    const startTime = Date.now();
-    let mistakes = 0;
+    const messageEl = document.getElementById("type-message");
 
     typingInput.addEventListener("input", () => {
         if (challengeCompleted) return;
         const val = typingInput.value;
-        const target = challenge.answer;
 
-        // Calculate live mistakes
-        let currentMistakes = 0;
-        for (let i = 0; i < val.length; i++) {
-            if (val[i] !== target[i]) currentMistakes++;
-        }
-        mistakes = Math.max(mistakes, currentMistakes);
-
-        // Accuracy Calculation
-        const accuracy = Math.max(0, Math.round(((val.length - mistakes) / Math.max(1, val.length)) * 100));
-        accuracyEl.textContent = `${accuracy}%`;
-        mistakesEl.textContent = mistakes;
-
-        if (accuracy >= 90) { accuracyEl.className = "accuracy good"; }
-        else if (accuracy >= 70) { accuracyEl.className = "accuracy warn"; }
-        else { accuracyEl.className = "accuracy bad"; }
-
-        if (val === target) {
+        if (val.toLowerCase() === challenge.answer.toLowerCase()) {
             typingInput.disabled = true;
-            const timeInMin = (Date.now() - startTime) / 60000;
-            const wpm = Math.round((target.length / 5) / timeInMin);
-
-            if (wpm > gameState.bestTypingSpeed) gameState.bestTypingSpeed = wpm;
-            if (wpm > 20) unlockBadge("speed_typist");
-            if (accuracy === 100) gameState.perfectChallenges = (gameState.perfectChallenges || 0) + 1;
-
+            if (messageEl) {
+                messageEl.textContent = "🎉 Great job!";
+                messageEl.className = "accuracy good";
+            }
             completeChallenge(challenge, {
-                title: "🎉 ACCURATE & FAST!",
-                message: `Typed perfectly at ${wpm} WPM!`,
-                bonusXP: accuracy === 100 ? TYPING_ACCURACY_PERFECT_BONUS : TYPING_ACCURACY_GOOD_BONUS,
-                noPerfect: true
+                title: "🎉 AWESOME!",
+                message: `You typed "${challenge.answer}" perfectly!`
             });
+        } else if (val.length >= challenge.answer.length) {
+            if (messageEl) {
+                messageEl.textContent = "Almost! Try again!";
+                messageEl.className = "accuracy warn";
+            }
+            typingInput.value = "";
         }
     });
-}
-
-function setupShortcutListener(challenge) {
-    cleanupShortcutListener();
-
-    const handler = (e) => {
-        if (challengeCompleted) return;
-
-        setPhysicalModeIndicator(true);
-
-        const [modifier, target] = challenge.answer.split("+");
-
-        let correct = false;
-
-        if (modifier === "Ctrl") {
-            correct = e.ctrlKey && e.code === `Key${target}`;
-        } else if (modifier === "Win") {
-            correct = e.metaKey && e.code === `Key${target}`;
-        } else if (modifier === "Alt") {
-            correct = e.altKey && e.code === "Tab";
-        }
-
-        if (correct) {
-            e.preventDefault();
-
-            completeChallenge(challenge, {
-                title: "🎉 NINJA SHORTCUT!",
-                message: `Executed ${challenge.answer}!`
-            });
-        }
-    };
-
-    activeShortcutHandler = handler;
-    window.addEventListener("keydown", activeShortcutHandler);
-}
-
-function cleanupShortcutListener() {
-    if (activeShortcutHandler) {
-        window.removeEventListener("keydown", activeShortcutHandler);
-        activeShortcutHandler = null;
-    }
 }
 
 function cleanupLabListeners() {
@@ -1228,117 +1111,6 @@ function cleanupLabListeners() {
         window.removeEventListener("keyup", labKeyUpHandler);
         labKeyUpHandler = null;
     }
-}
-
-function setupSimulatedOSWorkspace(workspace, challenge) {
-    const folderMatch = challenge.question.match(/folder named ['"]?([^'".]+?)['"]?\./i);
-    const requestedFolder = folderMatch ? folderMatch[1].trim() : "Homework";
-    const locationMatch = challenge.question.match(/Open (Documents|Pictures)/i);
-    const requestedLocation = locationMatch ? locationMatch[1] : "Documents";
-
-    const winWindow = document.createElement("div");
-    winWindow.className = "win-explorer-window";
-
-    const titleBar = document.createElement("div");
-    titleBar.className = "win-titlebar";
-
-    const titleSpan = document.createElement("span");
-    titleSpan.textContent = "📁 File Explorer - Workspace";
-
-    const closeSpan = document.createElement("span");
-    closeSpan.textContent = "🗔 ✖";
-
-    titleBar.append(titleSpan, closeSpan);
-
-    const winBody = document.createElement("div");
-    winBody.className = "win-body";
-    winBody.id = "win-body";
-
-    const folderDoc = document.createElement("div");
-    folderDoc.className = "win-folder";
-    folderDoc.id = "folder-doc";
-
-    const docIcon = document.createElement("span");
-    docIcon.className = "folder-icon";
-    docIcon.textContent = "📁";
-
-    const docName = document.createElement("span");
-    docName.className = "folder-name";
-    docName.textContent = "Documents";
-
-    folderDoc.append(docIcon, docName);
-
-    const folderPics = document.createElement("div");
-    folderPics.className = "win-folder";
-    folderPics.id = "folder-pics";
-
-    const picsIcon = document.createElement("span");
-    picsIcon.className = "folder-icon";
-    picsIcon.textContent = "📁";
-
-    const picsName = document.createElement("span");
-    picsName.className = "folder-name";
-    picsName.textContent = "Pictures";
-
-    folderPics.append(picsIcon, picsName);
-
-    winBody.append(folderDoc, folderPics);
-    winWindow.append(titleBar, winBody);
-    workspace.appendChild(winWindow);
-
-    const targetId = requestedLocation === "Pictures" ? "folder-pics" : "folder-doc";
-    const targetFolder = document.getElementById(targetId);
-
-    targetFolder.addEventListener("click", function() {
-        this.classList.add("selected");
-
-        setTimeout(() => {
-            const body = document.getElementById("win-body");
-            body.innerHTML = "";
-
-            const row = document.createElement("div");
-            row.style.width = "100%";
-            row.style.display = "flex";
-            row.style.justifyContent = "space-between";
-            row.style.alignItems = "center";
-            row.style.marginBottom = "10px";
-
-            const locSpan = document.createElement("span");
-            locSpan.style.fontSize = "0.9rem";
-            locSpan.textContent = `Location: /${requestedLocation}`;
-
-            const btn = document.createElement("button");
-            btn.className = "btn btn-secondary";
-            btn.id = "btn-create-folder";
-            btn.style.padding = "5px 10px";
-            btn.style.fontSize = "0.8rem";
-            btn.textContent = "+ New Folder";
-
-            row.append(locSpan, btn);
-            body.appendChild(row);
-
-            btn.addEventListener("click", () => {
-                const newFolder = document.createElement("div");
-                newFolder.className = "win-folder selected";
-
-                const fIcon = document.createElement("span");
-                fIcon.className = "folder-icon";
-                fIcon.textContent = "📁";
-
-                const fName = document.createElement("span");
-                fName.className = "folder-name";
-                fName.textContent = requestedFolder;
-
-                newFolder.append(fIcon, fName);
-                body.appendChild(newFolder);
-
-                completeChallenge(challenge, {
-                    title: "🎉 WINDOWS WIZARD!",
-                    message: `You created the ${requestedFolder} folder successfully!`
-                });
-            });
-        }, 300);
-    });
 }
 
 // --- 10. BOSS BATTLES ---
@@ -1354,11 +1126,7 @@ function startBossBattle() {
         { task: "Find Backspace Key", target: "Backspace" },
         { task: "Find Tab Key", target: "Tab" },
         { task: "Find Caps Lock", target: "Caps Lock" },
-        { task: "Find Escape Key", target: "Esc" },
         { task: "Find Shift Key", target: "Shift" },
-        { task: "Find Control Key", target: "Ctrl" },
-        { task: "Find Windows Key", target: "Win" },
-        { task: "Find Alt Key", target: "Alt" },
         { task: "Find Letter A", target: "A" },
         { task: "Find Letter S", target: "S" },
         { task: "Find Letter D", target: "D" },
@@ -1401,11 +1169,10 @@ function startBossBattle() {
     const winBoss = () => {
         clearInterval(bossTimerInterval);
         playSound("complete");
-        unlockBadge("robot_destroyer");
         unlockBadge("kb_master");
         addXP(BOSS_XP_REWARD);
-        showToast("🤖 ROBOT DEFEATED!");
-        navigateTo("view-main-menu");
+        showToast("🤖 ROBOT DEFEATED! YOU ARE A KEYBOARD MASTER!");
+        setTimeout(() => navigateTo("view-main-menu"), 1500);
     };
 
     updateBossUI();
@@ -1552,7 +1319,7 @@ function unhighlightVirtualKey(keyLabel) {
 }
 
 function validateChallenges() {
-    const validTypes = new Set(["key-finder", "typing", "shortcut", "shortcut-info", "simulated-os"]);
+    const validTypes = new Set(["key-finder", "typing"]);
     const seenIds = new Set();
     const valid = [];
     let invalidCount = 0;
